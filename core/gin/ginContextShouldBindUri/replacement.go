@@ -1,0 +1,23 @@
+package ginContextShouldBindUri
+
+import (
+	"github.com/ZbgIast/ZbgIast-agent-go/model/request"
+	"github.com/gin-gonic/gin"
+)
+
+func ShouldBindUri(c *gin.Context, obj interface{}) error {
+	err := ShouldBindUriT(c, obj)
+	request.FmtHookPool(request.PoolReq{
+		Args:            request.Collect(),
+		Reqs:            request.Collect(obj),
+		Source:          true,
+		OriginClassName: "gin.(*Context)",
+		MethodName:      "ShouldBindUri",
+		ClassName:       "gin.(*Context)",
+	})
+	return err
+}
+
+func ShouldBindUriT(c *gin.Context, obj interface{}) error {
+	return nil
+}

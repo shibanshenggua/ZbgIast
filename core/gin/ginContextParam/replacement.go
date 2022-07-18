@@ -1,0 +1,23 @@
+package ginContextParam
+
+import (
+	"github.com/ZbgIast/ZbgIast-agent-go/model/request"
+	"github.com/gin-gonic/gin"
+)
+
+func Param(c *gin.Context, key string) string {
+	str := ParamT(c, key)
+	request.FmtHookPool(request.PoolReq{
+		Args:            request.Collect(key),
+		Reqs:            request.Collect(str),
+		Source:          true,
+		OriginClassName: "gin.(*Context)",
+		MethodName:      "Param",
+		ClassName:       "gin.(*Context)",
+	})
+	return str
+}
+
+func ParamT(c *gin.Context, key string) string {
+	return ""
+}
